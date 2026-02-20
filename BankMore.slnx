@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="BankMore.Account.Application/BankMore.Account.Application.csproj" />
+  <Project Path="BankMore.Account.Domain/BankMore.Account.Domain.csproj" />
+  <Project Path="BankMore.Account.Infra/BankMore.Account.Infra.csproj" />
+  <Project Path="BankMore.Transfer.API/BankMore.Transfer.API.csproj" />
+  <Project Path="BankMore/BankMore.Account.API.csproj" />
+</Solution>
