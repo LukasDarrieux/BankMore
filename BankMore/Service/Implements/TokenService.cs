@@ -17,12 +17,11 @@ namespace BankMore.Account.API.Service.Implements
             _jwtConfig = jwtConfig.Value;
         }
 
-        public string GenerateToken(LoginCommand loginCommand)
+        public string GenerateToken(string accountNumber)
         {
             var claims = new[]
             {
-                new Claim("AccountNumberOrCPF", loginCommand.AccountNumberOrCPF),
-                new Claim("Password", loginCommand.Password)
+                new Claim("AccountNumber", accountNumber)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.SecretKey));

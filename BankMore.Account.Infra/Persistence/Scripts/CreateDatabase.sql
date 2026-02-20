@@ -33,7 +33,6 @@ BEGIN
 		CPF VARCHAR(11) NOT NULL,
 		Senha VARCHAR(255) NOT NULL,
 		Ativo BIT NULL,
-		Saldo DECIMAL(18, 2) NOT NULL DEFAULT(0),
 		PRIMARY KEY(IdContaCorrente)
 	);
 	PRINT 'Tabela de ContaCorrente criada com sucesso';

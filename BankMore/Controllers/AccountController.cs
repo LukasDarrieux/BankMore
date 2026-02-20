@@ -14,7 +14,7 @@ namespace BankMore.Account.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountController : GeneralController
     {
 
         private readonly IMediator _mediator;
@@ -38,7 +38,7 @@ namespace BankMore.Account.API.Controllers
         public async Task<IActionResult> Login(LoginCommand command)
         {
             var result = await _mediator.Send(command);
-            result.Token = _tokenService.GenerateToken(command);
+            result.Token = _tokenService.GenerateToken(result.AccountNumber);
             return Ok(result);
         }
 
@@ -54,37 +54,18 @@ namespace BankMore.Account.API.Controllers
         [HttpGet("GetBalance")]
         public async Task<IActionResult> GetBalance()
         {
-            string accountNumberOrCPF = GetAccountNumber();
+            string accountNumber = GetAccountNumber();
 
-            if (string.IsNullOrEmpty(accountNumberOrCPF))
+            if (string.IsNullOrEmpty(accountNumber))
             {
                 return Unauthorized();
             }
 
-            var balance = await _mediator.Send(new GetAccountBalanceQuery(accountNumberOrCPF));
+            var balance = await _mediator.Send(new GetAccountBalanceQuery(accountNumber));
             
             return Ok(new { Balance = balance });
         }
 
-        private string GetAccountNumber()
-        {
-            string accountNumber = string.Empty;
-            string tokenJwt = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
-            if (!string.IsNullOrEmpty(tokenJwt))
-            {
-                tokenJwt = tokenJwt.Replace("Bearer", "");
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var jwtSecurityToken = tokenHandler.ReadJwtToken(tokenJwt);
-
-                if (!(jwtSecurityToken is null))
-                {
-                    var numberOrCPF = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type.Equals("AccountNumberOrCPF", StringComparison.OrdinalIgnoreCase));
-
-                    accountNumber = numberOrCPF.Value;
-                }
-            }
-
-            return accountNumber;
-        }
+        
     }
 }

@@ -25,7 +25,7 @@ namespace BankMore.Account.Infra.Repositories
         {
             using var connection = _connectionFactory.CreateConnection();
 
-            var sql = @"INSERT INTO ContaCorrente(IdContaCorrente, Nome, Senha, CPF, Saldo, Numero, Ativo) OUTPUT INSERTED.Numero VALUES(@IdContaCorrente, @Nome, @Senha, @CPF, @Saldo, @Numero, 1)";
+            var sql = @"INSERT INTO ContaCorrente(IdContaCorrente, Nome, Senha, CPF, Numero, Ativo) OUTPUT INSERTED.Numero VALUES(@IdContaCorrente, @Nome, @Senha, @CPF, @Numero, 1)";
 
             var parameters = new
             {
@@ -33,7 +33,6 @@ namespace BankMore.Account.Infra.Repositories
                 Nome = account.Name,
                 Senha = account.Password,
                 CPF = account.CPF,
-                Saldo = account.Balance,
                 Numero = new Random().NextInt64(1000, 9999)
             };
 
@@ -49,20 +48,11 @@ namespace BankMore.Account.Infra.Repositories
             await connection.ExecuteScalarAsync(sql, new { IdContaCorrente = id });
         }
 
-        public async Task<decimal?> GetBalance(string numberOrCPF)
-        {
-            using var connection = _connectionFactory.CreateConnection();
-
-            var sql = @"SELECT Saldo as Balance FROM ContaCorrente WHERE Numero = @NumberOrCPF OR CPF = @NumberOrCPF";
-
-            return await connection.ExecuteScalarAsync<decimal?>(sql, new { NumberOrCPF = numberOrCPF });
-        }
-
         public async Task<Domain.AccountAggregate.Account?> GetByNumberOrCPFAsync(string numberOrCPF)
         {
             using var connection = _connectionFactory.CreateConnection();
 
-            var sql = @"SELECT IdContaCorrente AS Id, Nome AS Name, CPF as CPF, Numero as Number, Ativo AS Active, Senha As Password, Saldo as Balance  
+            var sql = @"SELECT IdContaCorrente AS Id, Nome AS Name, CPF as CPF, Numero as Number, Ativo AS Active, Senha As Password 
                        FROM ContaCorrente WHERE Numero = @NumberOrCPF OR CPF = @NumberOrCPF";
 
             var account = await connection.QueryAsync<Domain.AccountAggregate.Account>(sql, new { NumberOrCPF = numberOrCPF });

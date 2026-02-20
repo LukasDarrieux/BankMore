@@ -9,11 +9,11 @@ namespace BankMore.Account.Application.Features.Account.Queries
 {
     public class GetAccountBalanceQuery : IRequest<decimal> 
     {
-        public string AccountNumberOrCPF { get; set; }
+        public string AccountNumber { get; set; }
 
-        public GetAccountBalanceQuery(string accoutNumberOrCPF)
+        public GetAccountBalanceQuery(string accoutNumber)
         {
-            AccountNumberOrCPF = accoutNumberOrCPF;
+            AccountNumber = accoutNumber;
         }
     }
 }

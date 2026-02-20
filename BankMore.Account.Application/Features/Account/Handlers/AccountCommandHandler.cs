@@ -33,8 +33,6 @@ namespace BankMore.Account.Application.Features.Account.Handlers
 
             account.Id = Guid.NewGuid();
             account.Active = true;
-            account.Balance = 0m;
-
 
             var numeroConta = await _repository.CreateAsync(account);
 
@@ -52,8 +50,11 @@ namespace BankMore.Account.Application.Features.Account.Handlers
             }
 
             var account = await _repository.GetByNumberOrCPFAsync(command.AccountNumberOrCPF);
-            
-            return new LoginResponse("");
+            if (account is null)
+            {
+                throw new ArgumentException("Conta não encontrada");
+            }
+            return new LoginResponse(string.Empty, account.Number.ToString());
             
         }
 

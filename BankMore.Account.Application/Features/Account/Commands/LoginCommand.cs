@@ -14,7 +14,7 @@ namespace BankMore.Account.Application.Features.Account.Commands
         [Description("Account number or CPF")]
         public string AccountNumberOrCPF { get; set; }
 
-        [Description("Account Password")]
+        [Description("Account password")]
         public string Password { get; set; }
         
     }

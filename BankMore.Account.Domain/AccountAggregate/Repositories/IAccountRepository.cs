@@ -14,6 +14,5 @@ namespace BankMore.Account.Domain.AccountAggregate.Repositories
 
         Task DeactivateAsync(Guid id);
 
-        Task<decimal?> GetBalance(string numberOrCPF);
     }
 }

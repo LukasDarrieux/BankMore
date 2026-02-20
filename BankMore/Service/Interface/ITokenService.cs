@@ -4,6 +4,6 @@ namespace BankMore.Account.API.Service.Interface
 {
     public interface ITokenService
     {
-        string GenerateToken(LoginCommand loginCommand);
+        string GenerateToken(string accountNumber);
     }
 }

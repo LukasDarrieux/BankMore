@@ -14,7 +14,6 @@ namespace BankMore.Account.Domain.AccountAggregate
         public string CPF { get; set; }
         public bool Active { get; set; }
         public string Password { get; set; }
-        public decimal Balance { get; set; }
 
     }
 }
