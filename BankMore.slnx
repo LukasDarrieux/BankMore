@@ -3,5 +3,8 @@
   <Project Path="BankMore.Account.Domain/BankMore.Account.Domain.csproj" />
   <Project Path="BankMore.Account.Infra/BankMore.Account.Infra.csproj" />
   <Project Path="BankMore.Transfer.API/BankMore.Transfer.API.csproj" />
+  <Project Path="BankMore.Transfer.Application/BankMore.Transfer.Application.csproj" Id="fb0e408a-de66-4fc4-91f0-4320f8526616" />
+  <Project Path="BankMore.Transfer.Domain/BankMore.Transfer.Domain.csproj" Id="8b743591-b746-4e79-b097-153d2861dda4" />
+  <Project Path="BankMore.Transfer.Infra/BankMore.Transfer.Infra.csproj" Id="ef2cb6d5-e2fc-4a27-b7b8-5b674c3ac8ef" />
   <Project Path="BankMore/BankMore.Account.API.csproj" />
 </Solution>
